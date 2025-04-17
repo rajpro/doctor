@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 
 export default function Header() {
   const router = useRouter();
@@ -21,7 +21,7 @@ export default function Header() {
         <TouchableOpacity onPress={() => {
           router.push("/login");
         }}>
-          <Ionicons name="location" style={styles.locationIcon} />
+          <Image source={require('../assets/images/dicon.jpg')} style={{width:50, height:50}}/>
         </TouchableOpacity>
       </View>
     </View>

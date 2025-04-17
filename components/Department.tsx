@@ -22,9 +22,8 @@ export default function Department() {
             style={styles.container}
         >
             {sections.map((section, index) => (
-                <View style={{marginBottom:20}}>
+                <View key={index} style={{marginBottom:20}}>
                     <View
-                        key={index}
                         style={[
                             styles.sections,
                             {
