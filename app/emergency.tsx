@@ -4,15 +4,15 @@ import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
-export default function Profile() {
+export default function Emergency() {
   return (
     <View
       style={{
         flex: 1,
       }}
     >
-      {/* <LoginScreen /> */}
       <ProfileScreen />
+      
       
     </View>
   );
