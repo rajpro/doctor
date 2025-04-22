@@ -1,8 +1,10 @@
+import {useProfileHook } from "@/hooks/useProfileHook";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { Text, TouchableOpacity, View, StyleSheet, Image, Button, TextInput } from "react-native";
 
 export default function LoginScreen() {
+    const { username, password, setUsername, setPassword, Login } = useProfileHook();
 
     return (
         <View
@@ -21,6 +23,8 @@ export default function LoginScreen() {
                     style={styles.input}
                     placeholder="Enter your email"
                     placeholderTextColor="#aaa"
+                    value={username}
+                    onChangeText={setUsername}
                 />
             </View>
             <View style={styles.inputContainer}>
@@ -30,10 +34,12 @@ export default function LoginScreen() {
                     placeholder="Enter your email"
                     placeholderTextColor="#aaa"
                     secureTextEntry={true}
+                    value={password}
+                    onChangeText={setPassword}
                 />
             </View>
 
-            <TouchableOpacity style={styles.button} onPress={() => alert('Button Pressed')}>
+            <TouchableOpacity style={styles.button} onPress={Login}>
                 <Text style={styles.buttonText}>Sign In</Text>
             </TouchableOpacity>
             <View style={{position:"relative", width:"90%", alignItems:"center", marginVertical:25}}>

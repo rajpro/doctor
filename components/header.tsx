@@ -1,14 +1,18 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import React from "react";
+import React, { useCallback, useMemo, useRef } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
+import BottomSheet from '@gorhom/bottom-sheet';
 
 export default function Header() {
   const router = useRouter();
+  
+
   return (
     <View
       style={styles.container}
     >
+      
       <View style={{ flexGrow: 1 }}>
         <Text style={styles.location}>Location</Text>
         <View style={{ flexDirection: "row" }}>
@@ -24,10 +28,13 @@ export default function Header() {
           <Image source={require('../assets/images/dicon.jpg')} style={{width:50, height:50}}/>
         </TouchableOpacity>
       </View>
+
+      
     </View>
   );
 }
 
+// odisha_districts
 
 const styles = StyleSheet.create({
   container: {

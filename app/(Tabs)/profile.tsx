@@ -1,19 +1,25 @@
 import LoginScreen from "@/components/Login";
 import ProfileScreen from "@/components/Profile";
+import { useProfileHook, ProfileProvider } from "@/hooks/useProfileHook";
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
+import { View } from "react-native";
 
 export default function Profile() {
   return (
-    <View
-      style={{
-        flex: 1,
-      }}
-    >
-      {/* <LoginScreen /> */}
-      <ProfileScreen />
-      
-    </View>
+    <ProfileProvider>
+      <View style={{ flex: 1 }}>
+        <ProfileScreens />
+      </View>
+    </ProfileProvider>
   );
+}
+
+export function ProfileScreens() {
+  const { loginStatus } = useProfileHook();
+
+  if(loginStatus == true){
+    return (<ProfileScreen />);
+  }else{
+    return (<LoginScreen />);
+  }
 }

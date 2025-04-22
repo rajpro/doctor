@@ -1,3 +1,5 @@
+import DoctorsCard from "@/components/Cards/doctors";
+import EmergencyCard from "@/components/Cards/emergency";
 import Department from "@/components/Department";
 import Feeds from "@/components/Feeds";
 import Header from "@/components/header";
@@ -14,10 +16,11 @@ export default function Favorite() {
       style={{
         flex: 1,
         paddingHorizontal: 20,
-        // backgroundColor: "#fff"
+        backgroundColor: "#fff"
       }}
     >
-      <Text>Favorite Section</Text>
+      <EmergencyCard />
+      <DoctorsCard />
     </View>
   );
 }

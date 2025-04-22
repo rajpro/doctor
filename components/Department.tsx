@@ -1,21 +1,14 @@
+import { Constant } from "@/constants/Constant";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import React from "react";
-import { Text, View, StyleSheet, Dimensions } from "react-native";
+import { Text, View, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
 
 export default function Department() {
     const windowWidth = Dimensions.get('window').width;
     const boxWidth = (windowWidth - (20 + 20 + 20 + 20 + 20)) / 4;
 
-    const sections = [
-        { color: "#dc9593", icon: "home-outline", title: "Dentristy" },
-        { color: "#93c09f", icon: "mail-outline" },
-        { color: "#f1ae7f", icon: "home-outline" },
-        { color: "#aba1cc", icon: "home-outline" },
-        { color: "#4c9c92", icon: "home-outline" },
-        { color: "#332360", icon: "home-outline" },
-        { color: "#dfb6b4", icon: "home-outline" },
-        { color: "#86ceda", icon: "home-outline" }
-    ];
+    const sections = Constant.department;
 
     return (
         <View
@@ -23,6 +16,12 @@ export default function Department() {
         >
             {sections.map((section, index) => (
                 <View key={index} style={{marginBottom:20}}>
+                    <TouchableOpacity onPress={() => {
+                        router.push({
+                            pathname: '/doctors',
+                            params: { name: section.title },
+                          });
+                    }}>
                     <View
                         style={[
                             styles.sections,
@@ -37,7 +36,9 @@ export default function Department() {
                         <View style={styles.sectionDesignOne}></View>
                         <Ionicons name={section.icon} style={styles.sectionIcons} />
                     </View>
-                    <Text style={styles.sectionTitle}>{section.title || "Dentristy"}</Text>
+                    </TouchableOpacity>
+                    <Text style={[styles.sectionTitle, {maxWidth: boxWidth}]} numberOfLines={1}
+  ellipsizeMode="tail">{section.title}</Text>
                 </View>
             ))}
         </View>

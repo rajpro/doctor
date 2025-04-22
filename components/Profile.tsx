@@ -1,8 +1,10 @@
+import { useProfileHook } from "@/hooks/useProfileHook";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { Text, TouchableOpacity, View, StyleSheet, Image, Button, TextInput } from "react-native";
 
 export default function ProfileScreen() {
+    const {Logout} = useProfileHook();
 
     return (
         <View
@@ -42,7 +44,7 @@ export default function ProfileScreen() {
                         <Text style={styles.listTilesText}>Setting</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={Logout}>
                     <View style={styles.listTilesContainer}>
                         <Ionicons name="log-out-outline" style={styles.listTilesIcon} />
                         <Text style={styles.listTilesText}>Log Out</Text>
