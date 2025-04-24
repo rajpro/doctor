@@ -31,17 +31,11 @@ export default function Index() {
       <Search />
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <TouchableOpacity onPress={handleOpen}>
-          <Text style={{ fontSize: 30 }}>Click me</Text>
-        </TouchableOpacity>
         <View style={{
           flexDirection: "row",
           marginVertical: 20
         }}>
           <Text style={{ fontSize: 18, fontWeight: 600, flexGrow: 1 }}>Department</Text>
-          <TouchableOpacity>
-            <Text style={{ color: "#bfbfbf" }}>See All</Text>
-          </TouchableOpacity>
         </View>
 
         <Department />

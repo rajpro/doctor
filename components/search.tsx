@@ -18,19 +18,20 @@ export default function Search() {
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
-        position: "relative"
+        position: "relative",
+        height: 40
     },
     searchIcon:{
         position: "absolute",
         top:8,
         left:0,
         fontSize:20,
-        color: "#cccccc",
+        color: "#2e2e2e",
         zIndex:1,
         marginLeft:10
     },
     search: {
-        backgroundColor: "#e6e6e6",
+        backgroundColor: "#f5f5f5",
         flex:1,
         borderRadius: 5,
         paddingLeft: 40

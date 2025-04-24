@@ -6,7 +6,7 @@ export default function TabLayout() {
   // #a6252a
   return <>
     <StatusBar backgroundColor="#a6252a" barStyle="light-content" />
-    <Tabs screenOptions={{
+    <Tabs  screenOptions={{
       headerShown: false, tabBarStyle: {
         backgroundColor: '#a6252a',
         height: 60,
