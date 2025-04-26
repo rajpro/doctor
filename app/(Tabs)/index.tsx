@@ -1,30 +1,20 @@
 import Department from "@/components/Department";
-import Feeds from "@/components/Feeds";
+import FeedsScreen from "@/components/Feeds";
 import Header from "@/components/header";
 import LatestDoctor from "@/components/LatestDoctor";
 import Search from "@/components/search";
-import { BottomSheetModal, BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { DoctorProvider } from "@/hooks/useDoctorContext";
+import { PostProvider } from "@/hooks/usePostContext";
 import { router } from "expo-router";
-import React, { useCallback, useMemo, useRef } from "react";
+import React from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 export default function Index() {
-
-  const bottomSheetRef = useRef<BottomSheetModal>(null);
-
-  const snapPoints = useMemo(() => ['25%', '50%'], []);
-
-  const handleOpen = useCallback(() => {
-    bottomSheetRef.current?.present();
-  }, []);
-
   return (
-    <BottomSheetModalProvider>
     <View
       style={{
         flex: 1,
         paddingHorizontal: 20,
-        backgroundColor: "#fff"
       }}
     >
       <Header />
@@ -44,7 +34,7 @@ export default function Index() {
           flexDirection: "row",
           marginBottom: 20
         }}>
-          <Text style={{ fontSize: 18, fontWeight: 600, flexGrow: 1 }}>Latest Doctor Post</Text>
+          <Text style={{ fontSize: 18, fontWeight: 600, flexGrow: 1 }}>Latest Doctor</Text>
           <TouchableOpacity onPress={() => {
             router.push('/doctors');
           }}>
@@ -52,7 +42,9 @@ export default function Index() {
           </TouchableOpacity>
         </View>
         <View style={{ height: 160 }}>
-          <LatestDoctor />
+          <DoctorProvider>
+            <LatestDoctor />
+          </DoctorProvider>
         </View>
         <View style={{
           flexDirection: "row",
@@ -68,25 +60,11 @@ export default function Index() {
           </TouchableOpacity>
         </View>
         <View style={{ height: 160 }}>
-          <Feeds />
+          <PostProvider>
+            <FeedsScreen />
+          </PostProvider>
         </View>
       </ScrollView>
-
-      <BottomSheetModal
-        ref={bottomSheetRef}
-        snapPoints={snapPoints}
-        backdropComponent={() => null}
-        enablePanDownToClose={true}
-      >
-        <View style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-          <Text>👋 Hello from the Bottom Sheet!</Text>
-        </View>
-      </BottomSheetModal>
     </View>
-    </BottomSheetModalProvider>
   );
 }

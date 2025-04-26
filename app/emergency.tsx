@@ -4,8 +4,27 @@ import { router, Stack } from 'expo-router';
 import EmergencyCard from "@/components/Cards/emergency";
 import { PostProvider, usePostHook } from "@/hooks/usePostContext";
 import { Ionicons } from "@expo/vector-icons";
+import emitter from "@/utils/events";
 
-export default function Emergency() {
+export default function EmergencyScreen() {
+  return (
+    <PostProvider>
+      <Emergency />
+    </PostProvider>
+  );
+}
+
+export function Emergency() {
+  const { loading, post, getPost } = usePostHook();
+
+  useEffect(() => {
+    getPost();
+    emitter.on("refreshFeed", getPost);
+    return () => {
+      emitter.off("refreshFeed", getPost);
+    };
+
+  }, []);
 
   return (
     <>
@@ -16,10 +35,22 @@ export default function Emergency() {
         }
       }} />
 
-      <ScrollView style={{ marginHorizontal: 20 }} showsVerticalScrollIndicator={false}>
-        <PostProvider>
-          <EmergencyPro />
-        </PostProvider>
+      <ScrollView style={{ marginHorizontal: 20, marginVertical: 10 }} showsVerticalScrollIndicator={false}>
+        {!loading ? (
+            <ActivityIndicator size="large" color="#a6252a" />
+        ): post && post.length > 0 ? (
+            post.map((p: any, index: number) => (
+              <View key={index} style={{ marginBottom: 15 }}>
+                <EmergencyCard posts={p} />
+              </View>
+            ))
+          ) : (
+            <View style={{ alignItems: "center", marginTop: 20 }}>
+              <Text>No Record Found</Text>
+            </View>
+          )
+        }
+        
       </ScrollView>
 
       <TouchableOpacity onPress={() => {
@@ -32,34 +63,6 @@ export default function Emergency() {
           <Ionicons name="add-outline" style={{ fontSize: 26, color: "white" }} />
         </View>
       </TouchableOpacity>
-    </>
-  );
-}
-
-export function EmergencyPro() { // Empergency Provider
-  const { loading, post, getPost } = usePostHook();
-
-  useEffect(() => {
-    getPost();
-  }, []);
-
-  if (!loading) {
-    return <ActivityIndicator size="large" color="#a6252a" />;
-  }
-
-  return (
-    <>
-      {post && post.length > 0 ? (
-        post.map((p: any, index: number) => (
-          <View key={index} style={{ marginBottom: 15 }}>
-            <EmergencyCard posts={p} />
-          </View>
-        ))
-      ) : (
-        <View style={{ alignItems: "center", marginTop: 20 }}>
-          <Text>No Record Found</Text>
-        </View>
-      )}
     </>
   );
 }

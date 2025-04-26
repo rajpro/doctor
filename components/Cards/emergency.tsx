@@ -17,7 +17,7 @@ export default function EmergencyCard({ posts }: EmergencyCardProps) {
 
   return (
     <>
-        <View style={{flexDirection: "row", marginTop:20, borderBottomWidth:1, paddingBottom:10, borderBottomColor: "#acacac"}}>
+        <View style={{flexDirection: "row", paddingBottom:10, backgroundColor: "white", padding: 10, borderRadius: 5}}>
           
           <View style={{flex:1}}>
             <Text style={{fontWeight:600, marginBottom:5}}>{posts.user_detail.user_name}</Text>

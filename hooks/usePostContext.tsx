@@ -1,11 +1,12 @@
 import { getDoctors, getDoctorsByDepartment } from "@/api/doctor";
-import { getPosts } from "@/api/post";
+import { getLatestPosts, getPosts } from "@/api/post";
 import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 type PostContextType = {
     loading: boolean;
     post: [];
     getPost: () => void;
+    getLatestPost: () => void;
 };
 type PostProviderProps = {
     children: ReactNode;
@@ -26,17 +27,28 @@ export const PostProvider = ({ children }: PostProviderProps) => {
             const result = await getPosts();
             setLoading(true);
             setPost(result.data);
-            console.log(result);
         } catch (error) {
             console.error("Error fetching doctors:", error);
         } finally {
-            console.log("List Doctors Successfull");
+            console.log("List Post Successfull");
+        }
+    };
+
+    const getLatestPost = async () => {
+        try {
+            const result = await getLatestPosts();
+            setLoading(true);
+            setPost(result.data);
+        } catch (error) {
+            console.error("Error fetching doctors:", error);
+        } finally {
+            console.log("List Post Successfull");
         }
     };
 
     return (
         <PostContext.Provider value={{
-            loading, post , getPost
+            loading, post , getPost, getLatestPost
         }}>
             {children}
         </PostContext.Provider>

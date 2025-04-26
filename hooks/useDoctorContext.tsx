@@ -1,10 +1,11 @@
-import { getDoctors, getDoctorsByDepartment } from "@/api/doctor";
+import { getDoctors, getDoctorsByDepartment, getLatestDoctors } from "@/api/doctor";
 import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 type DoctorContextType = {
     loading: boolean;
     doctors: [];
     getDoctor: () => void;
+    getLatestDoctor: () => void;
     getDoctorByDepartment: (department: string) => void;
 };
 type DoctorProviderProps = {
@@ -26,7 +27,18 @@ export const DoctorProvider = ({ children }: DoctorProviderProps) => {
             const result = await getDoctors();
             setLoading(true);
             setDoctors(result.data);
-            console.log(result);
+        } catch (error) {
+            console.error("Error fetching doctors:", error);
+        } finally {
+            console.log("List Doctors Successfull");
+        }
+    };
+
+    const getLatestDoctor = async () => {
+        try {
+            const result = await getLatestDoctors();
+            setLoading(true);
+            setDoctors(result.data);
         } catch (error) {
             console.error("Error fetching doctors:", error);
         } finally {
@@ -39,7 +51,6 @@ export const DoctorProvider = ({ children }: DoctorProviderProps) => {
             const result = await getDoctorsByDepartment(department);
             setLoading(true);
             setDoctors(result.data);
-            console.log(result);
         } catch (error) {
             console.error("Error fetching doctors:", error);
         } finally {
@@ -49,7 +60,7 @@ export const DoctorProvider = ({ children }: DoctorProviderProps) => {
 
     return (
         <DoctorContext.Provider value={{
-            loading, doctors , getDoctor, getDoctorByDepartment
+            loading, doctors , getDoctor, getDoctorByDepartment, getLatestDoctor
         }}>
             {children}
         </DoctorContext.Provider>

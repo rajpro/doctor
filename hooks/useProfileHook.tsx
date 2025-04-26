@@ -37,6 +37,7 @@ export const ProfileProvider = ({ children }: ProfileProviderProps) => {
         try {
             const result = await login(username, password);
             saveToken('token', result.jwtToken);
+            saveToken('user_id', result.tokenObject._id);
             setloginStatus(true);
         } catch (error) {
             console.error("Error fetching doctors:", error);
@@ -47,6 +48,7 @@ export const ProfileProvider = ({ children }: ProfileProviderProps) => {
 
     const Logout = async () => {
         await deleteToken('token');
+        await deleteToken('user_id');
         setloginStatus(false);
     }
 

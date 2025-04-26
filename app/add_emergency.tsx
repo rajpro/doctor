@@ -1,15 +1,26 @@
+import { addPost } from "@/api/post";
+import { getToken } from "@/storage";
+import emitter from "@/utils/events";
 import { Ionicons } from "@expo/vector-icons";
 import { router, Stack } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
 export default function addEmergency() {
+    const [post, setPost] = useState("");
+
+    const handlePost = async () => {
+        const uid = await getToken("user_id");
+        await addPost({user_id: uid, post: post});
+        emitter.emit("refreshFeed");
+        router.back();
+    }
+
     return (<>
         <Stack.Screen options={{
             title: '', headerShown: true, headerTintColor: "#fff", headerStyle: {
                 backgroundColor: "#a6252a",
-
             },
             headerLeft: () => (
                 <TouchableOpacity onPress={() => router.back()} style={{ marginLeft: 10 }}>
@@ -17,7 +28,7 @@ export default function addEmergency() {
                 </TouchableOpacity>
               ),
               headerRight: () => (
-                <TouchableOpacity onPress={() => {/* your submit logic here */}} style={{ marginRight: 10 }}>
+                <TouchableOpacity onPress={() => handlePost()} style={{ marginRight: 10 }}>
                   <Text style={{ color: "#fff", fontSize: 16, fontWeight: "bold" }}>Post</Text>
                 </TouchableOpacity>
               ),
@@ -29,7 +40,8 @@ export default function addEmergency() {
                     style={styles.input}
                     placeholder="What's happening?"
                     placeholderTextColor="#aaa"
-                    
+                    value={post}
+                    onChangeText={setPost}
                 />
             </View>
         </View>

@@ -17,3 +17,12 @@ export const getDoctorsByDepartment = async (department: string) => {
         throw error;
     }
 };
+
+export const getLatestDoctors = async () => {
+    try {
+        const response = await API.post('/get_all_doctors', {limit: 5});
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
