@@ -13,13 +13,6 @@ export default function TabLayout() {
       },
       tabBarShowLabel: false,
     }}>
-      <Tabs.Screen name="favorite" options={{
-        tabBarIcon: ({ color, size, focused }) => (
-          <View style={[styles.iconView, { backgroundColor: focused ? '#fff' : 'transparent' }]}>
-            <Ionicons name="heart-outline" size={size} color={focused ? "#a6252a" : "#fff"} />
-          </View>
-        )
-      }} />
       <Tabs.Screen name="index" options={{
         tabBarIcon: ({ color, size, focused }) => (
           <View style={[styles.iconView, { backgroundColor: focused ? '#fff' : 'transparent' }]}>

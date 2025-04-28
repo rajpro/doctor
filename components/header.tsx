@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import React, { useCallback, useMemo, useRef } from "react";
+import React from "react";
 import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import BottomSheet from '@gorhom/bottom-sheet';
 
@@ -23,7 +23,7 @@ export default function Header() {
 
       <View>
         <TouchableOpacity onPress={() => {
-          router.push("/login");
+          router.push("/profile");
         }}>
           <Image source={require('../assets/images/dicon.jpg')} style={{width:50, height:50}}/>
         </TouchableOpacity>

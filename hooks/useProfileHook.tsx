@@ -1,14 +1,20 @@
-import { login } from "@/api/user";
+import { login, register } from "@/api/user";
 import { deleteToken, getToken, saveToken } from "@/storage";
+import { router } from "expo-router";
 import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 type ProfileContextType = {
     username: string;
     password: string;
+    fullName: string;
+    mobile: string;
     loginStatus: boolean;
     setUsername: (username: string) => void;
     setPassword: (password: string) => void;
+    setFullName: (fullName: string) => void;
+    setMobile: (mobile: string) => void;
     Login: () => void;
+    Register: () => void;
     Logout: () => void;
 };
 type ProfileProviderProps = {
@@ -19,7 +25,9 @@ const ProfileContext = createContext<ProfileContextType | null>(null);
 
 export const ProfileProvider = ({ children }: ProfileProviderProps) => {
     const [loginStatus, setloginStatus] = useState<boolean>(false);
+    const [fullName, setFullName] = useState("");
     const [username, setUsername] = useState("");
+    const [mobile, setMobile] = useState("");
     const [password, setPassword] = useState("");
 
     useEffect(() => {
@@ -40,9 +48,24 @@ export const ProfileProvider = ({ children }: ProfileProviderProps) => {
             saveToken('user_id', result.tokenObject._id);
             setloginStatus(true);
         } catch (error) {
-            console.error("Error fetching doctors:", error);
+            // console.error("Error fetching doctors:", error);
+            alert("Username Password Incorrect");
         } finally {
             console.log("Login Successfull");
+        }
+    };
+
+    const Register = async () => {
+        try {
+            const result = await register(fullName, username, mobile, password);
+            alert("Registration Successful");
+            setTimeout(() => {
+                router.back();
+            }, 1000)
+        } catch (error) {
+            console.error("Error fetching doctors:", error);
+        } finally {
+            console.log("Register Successfull");
         }
     };
 
@@ -54,7 +77,7 @@ export const ProfileProvider = ({ children }: ProfileProviderProps) => {
 
     return (
         <ProfileContext.Provider value={{
-            username, password, loginStatus, setUsername, setPassword, Login, Logout
+            username, password, loginStatus, fullName, mobile, setUsername, setPassword, Login, Logout, setFullName, setMobile, Register
         }}>
             {children}
         </ProfileContext.Provider>

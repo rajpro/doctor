@@ -1,5 +1,6 @@
 import { useProfileHook } from "@/hooks/useProfileHook";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import React from "react";
 import { Text, TouchableOpacity, View, StyleSheet, Image, Button, TextInput } from "react-native";
 
@@ -32,10 +33,12 @@ export default function ProfileScreen() {
                         <Text style={styles.listTilesText}>My Profile</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                    router.push('/favorite');
+                }}>
                     <View style={styles.listTilesContainer}>
                         <Ionicons name="heart-outline" style={styles.listTilesIcon} />
-                        <Text style={styles.listTilesText}>Favourites</Text>
+                        <Text style={styles.listTilesText}>Saved</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity>

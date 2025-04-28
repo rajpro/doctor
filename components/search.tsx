@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         marginLeft:10
     },
     search: {
-        backgroundColor: "#f5f5f5",
+        backgroundColor: "#FFF",
         flex:1,
         borderRadius: 5,
         paddingLeft: 40

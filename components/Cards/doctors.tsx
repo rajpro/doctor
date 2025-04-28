@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { updateWishlist } from "@/api/user";
 
 interface DoctorCardProps {
     doctor: {
+        _id: string;
         name: string;
         address?: string;
         mobile: string;
@@ -13,15 +15,21 @@ interface DoctorCardProps {
         visiting_details?: {
             day: string,
             timing: string
-        }[]
+        }[];
+        wishlist: boolean;
     };
 }
 
 export default function DoctorsCard({ doctor }: DoctorCardProps) {
     const [saved, setSaved] = useState<boolean>(false);
 
-    function handelSaved() {
-        setSaved(true);
+    const handelSaved = async () => {
+        await updateWishlist(doctor._id, 'doctors');
+        if(saved){
+            setSaved(false);
+        }else{
+            setSaved(true);
+        }
     }
 
     return (

@@ -1,11 +1,10 @@
 import {useProfileHook } from "@/hooks/useProfileHook";
 import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
 import React from "react";
 import { Text, TouchableOpacity, View, StyleSheet, Image, Button, TextInput } from "react-native";
 
-export default function LoginScreen() {
-    const { username, password, setUsername, setPassword, Login } = useProfileHook();
+export default function RegisterScreen() {
+    const { username, password, mobile, fullName, setUsername, setPassword, setFullName, setMobile, Register } = useProfileHook();
 
     return (
         <View
@@ -15,24 +14,44 @@ export default function LoginScreen() {
                 source={require('../assets/images/icon.jpg')}
                 style={styles.image} />
             <Text style={{ fontSize: 28, fontWeight: 600, marginTop: 15 }}>Odisha Doctors</Text>
-            <Text style={{ fontSize: 28, fontWeight: 600, marginTop: 35 }}>Hi, Welcome Back!</Text>
-            <Text style={{ fontSize: 18, fontWeight: 400 }}>Hope you're doing fine.</Text>
 
+            <View style={styles.inputContainer}>
+                <Ionicons name="person-outline" size={24} color="#666" style={styles.icon} />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Enter Full Name"
+                    placeholderTextColor="#aaa"
+                    value={fullName}
+                    onChangeText={setFullName}
+                />
+            </View>
             <View style={styles.inputContainer}>
                 <Ionicons name="mail-outline" size={24} color="#666" style={styles.icon} />
                 <TextInput
                     style={styles.input}
-                    placeholder="Enter your email"
+                    placeholder="Enter Email"
                     placeholderTextColor="#aaa"
+                    keyboardType="email-address"
                     value={username}
                     onChangeText={setUsername}
+                />
+            </View>
+            <View style={styles.inputContainer}>
+                <Ionicons name="call-outline" size={24} color="#666" style={styles.icon} />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Enter Mobile No."
+                    placeholderTextColor="#aaa"
+                    keyboardType="phone-pad"
+                    value={mobile}
+                    onChangeText={setMobile}
                 />
             </View>
             <View style={styles.inputContainer}>
                 <Ionicons name="lock-closed-outline" size={24} color="#666" style={styles.icon} />
                 <TextInput
                     style={styles.input}
-                    placeholder="Enter your email"
+                    placeholder="Enter Password"
                     placeholderTextColor="#aaa"
                     secureTextEntry={true}
                     value={password}
@@ -40,23 +59,9 @@ export default function LoginScreen() {
                 />
             </View>
 
-            <TouchableOpacity style={styles.button} onPress={Login}>
-                <Text style={styles.buttonText}>Sign In</Text>
+            <TouchableOpacity style={styles.button} onPress={Register}>
+                <Text style={styles.buttonText}>Sign Up</Text>
             </TouchableOpacity>
-            <View style={{position:"relative", width:"90%", alignItems:"center", marginVertical:25}}>
-                <Text style={{textAlign:"center", backgroundColor:"#fff", zIndex:1, width:60}}>or</Text>
-                <View style={{position:"absolute", width: "100%", borderBottomWidth:1, borderColor:"#acacac", bottom:5, left:0}}></View>
-            </View>
-            
-            <TouchableOpacity>
-                <Text style={{ color: "#1877F2" }}>Forgot password?</Text>
-            </TouchableOpacity>
-            <View style={{flexDirection:"row", marginTop:15}}>
-                <Text>Don't have an account yet? </Text>
-                <TouchableOpacity onPress={() => {router.push('/register')}}>
-                    <Text style={{ color: "#1877F2" }}>Sign Up</Text>
-                </TouchableOpacity>
-            </View>
         </View>
     );
 }

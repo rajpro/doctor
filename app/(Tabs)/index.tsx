@@ -5,18 +5,37 @@ import LatestDoctor from "@/components/LatestDoctor";
 import Search from "@/components/search";
 import { DoctorProvider } from "@/hooks/useDoctorContext";
 import { PostProvider } from "@/hooks/usePostContext";
+import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { router } from "expo-router";
-import React from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import React, { useCallback, useMemo, useRef } from "react";
+import { Button, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 export default function Index() {
-  return (
+  const bottomSheetRef = useRef<BottomSheet>(null);
+
+  const snapPoints = useMemo(() => ["25%", "50%"], []);
+
+  const handleSheetChange = useCallback((index: number) => {
+    console.log("handleSheetChange", index);
+  }, []);
+
+  const handleOpenPress = useCallback(() => {
+    bottomSheetRef.current?.snapToIndex(1); // open to 50%
+  }, []);
+
+  const handleClosePress = useCallback(() => {
+    bottomSheetRef.current?.close();
+  }, []);
+
+  return (<>
     <View
       style={{
         flex: 1,
         paddingHorizontal: 20,
       }}
     >
+      <Button title="Open BottomSheet" onPress={handleOpenPress} />
+      <Button title="Close BottomSheet" onPress={handleClosePress} />
       <Header />
       <Search />
 
@@ -66,5 +85,15 @@ export default function Index() {
         </View>
       </ScrollView>
     </View>
-  );
+
+    <BottomSheet
+      ref={bottomSheetRef}
+      snapPoints={snapPoints}
+      index={-1}
+    >
+      <BottomSheetView >
+        <Text>Awesome 🎉</Text>
+      </BottomSheetView>
+    </BottomSheet>
+  </>);
 }
