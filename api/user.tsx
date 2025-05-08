@@ -19,6 +19,15 @@ export const register = async (full_name: string, email: string, mobile: string,
     }
 };
 
+export const getUser = async (user_id: string) => {
+    try {
+        const response = await API.post('/getuser', {user_id:user_id});
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const updateWishlist = async (wl_id: string, wl_type: string) => {
     try {
         const uid = await getToken('user_id');

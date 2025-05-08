@@ -1,11 +1,23 @@
 import { useProfileHook } from "@/hooks/useProfileHook";
+import { getToken } from "@/storage";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View, StyleSheet, Image, Button, TextInput } from "react-native";
 
 export default function ProfileScreen() {
     const {Logout} = useProfileHook();
+    const [role, setRole] = useState("");
+    useEffect(() => {
+        v();
+    }, []);
+
+    const v = async ()  => {
+        const r = await getToken("role");
+        setRole(String(r));
+    };
+    
+    
 
     return (
         <View
@@ -13,7 +25,7 @@ export default function ProfileScreen() {
         >
             <View style={{ alignItems: "center", marginTop: 25 }}>
                 <Image
-                    source={require('../assets/images/icon.jpg')}
+                    source={require('../assets/images/icon.png')}
                     style={styles.image} />
                 <Text style={{ fontSize: 28, fontWeight: 600, marginTop: 15 }}>Rajesh Sardar</Text>
                 <Text style={{ fontSize: 16, fontWeight: 400 }}>Customer</Text>
@@ -47,6 +59,12 @@ export default function ProfileScreen() {
                         <Text style={styles.listTilesText}>Setting</Text>
                     </View>
                 </TouchableOpacity>
+                {role == "admin"? (<TouchableOpacity onPress={()=>{router.push('/add_doctor')}}>
+                        <View style={styles.listTilesContainer}>
+                            <Ionicons name="people-outline" style={styles.listTilesIcon} />
+                            <Text style={styles.listTilesText}>Add Doctor</Text>
+                        </View>
+                    </TouchableOpacity>):(<></>)}
                 <TouchableOpacity onPress={Logout}>
                     <View style={styles.listTilesContainer}>
                         <Ionicons name="log-out-outline" style={styles.listTilesIcon} />

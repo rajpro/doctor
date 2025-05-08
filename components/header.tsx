@@ -25,7 +25,7 @@ export default function Header() {
         <TouchableOpacity onPress={() => {
           router.push("/profile");
         }}>
-          <Image source={require('../assets/images/dicon.jpg')} style={{width:50, height:50}}/>
+          <Image source={require('../assets/images/icon.png')} style={{width:50, height:50}}/>
         </TouchableOpacity>
       </View>
 

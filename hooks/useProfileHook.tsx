@@ -1,4 +1,4 @@
-import { login, register } from "@/api/user";
+import { getUser, login, register } from "@/api/user";
 import { deleteToken, getToken, saveToken } from "@/storage";
 import { router } from "expo-router";
 import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
@@ -46,9 +46,12 @@ export const ProfileProvider = ({ children }: ProfileProviderProps) => {
             const result = await login(username, password);
             saveToken('token', result.jwtToken);
             saveToken('user_id', result.tokenObject._id);
+            const user = await getUser(String(result.tokenObject._id));
+            saveToken('role', user.data.role);
+            console.log(user.data.role);
             setloginStatus(true);
         } catch (error) {
-            // console.error("Error fetching doctors:", error);
+            console.error("Error fetching doctors:", error);
             alert("Username Password Incorrect");
         } finally {
             console.log("Login Successfull");
@@ -72,6 +75,7 @@ export const ProfileProvider = ({ children }: ProfileProviderProps) => {
     const Logout = async () => {
         await deleteToken('token');
         await deleteToken('user_id');
+        await deleteToken('role');
         setloginStatus(false);
     }
 

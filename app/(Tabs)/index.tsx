@@ -34,8 +34,6 @@ export default function Index() {
         paddingHorizontal: 20,
       }}
     >
-      <Button title="Open BottomSheet" onPress={handleOpenPress} />
-      <Button title="Close BottomSheet" onPress={handleClosePress} />
       <Header />
       <Search />
 

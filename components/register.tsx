@@ -11,7 +11,7 @@ export default function RegisterScreen() {
             style={styles.container}
         >
             <Image
-                source={require('../assets/images/icon.jpg')}
+                source={require('../assets/images/icon.png')}
                 style={styles.image} />
             <Text style={{ fontSize: 28, fontWeight: 600, marginTop: 15 }}>Odisha Doctors</Text>
 

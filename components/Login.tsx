@@ -12,7 +12,7 @@ export default function LoginScreen() {
             style={styles.container}
         >
             <Image
-                source={require('../assets/images/icon.jpg')}
+                source={require('../assets/images/icon.png')}
                 style={styles.image} />
             <Text style={{ fontSize: 28, fontWeight: 600, marginTop: 15 }}>Odisha Doctors</Text>
             <Text style={{ fontSize: 28, fontWeight: 600, marginTop: 35 }}>Hi, Welcome Back!</Text>
